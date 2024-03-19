@@ -15,10 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// routes will go here
 
-// Default route.
-// Provides a selection of routes to go to as links.
 app.get("/", function (req, res) {
   outstring += '<p><a href="./register">Go to register</a>';
   outstring += '<p><a href="./login">Go to login</a>';
@@ -26,8 +23,10 @@ app.get("/", function (req, res) {
 });
 
 app.get("/register", function (req, res) {
-  var registerString = '<p><input type="text" id="username"</p>';
-  registerString += '<p><input type="text" id="password"';
+  var registerString = '<label>Username: </label>';
+  registerString += '<p><input type="text" id="username"</p>';
+  registerString += '<label>Password: </label>'
+  registerString += '<p><input type="text" id="password"</p>';
   res.send(registerString);
 });
 
