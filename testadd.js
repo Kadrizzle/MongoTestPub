@@ -8,14 +8,13 @@ const uri =
 const express = require("express");
 const app = express();
 const port = 3000;
-const cookieParser = require('cookie-parser')
+const cookieParser = require("cookie-parser");
 app.listen(port);
 console.log("Server started at http://localhost:" + port);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-
 
 app.get("/", function (req, res) {
   var outstring = '<p><a href="./register">Go to register</a>';
@@ -24,29 +23,29 @@ app.get("/", function (req, res) {
 });
 
 app.get("/register", function (req, res) {
-  var registerString = '<form action = "/insertDb/:username&:password" method = "post"';
-  registerString += '<label>Username: </label>';
-  registerString += '<input type="text" id="username" name="username">';
-  registerString += '<label>Password: </label>';
+  var registerString =
+    '<form action = "/insertDb/:username&:password" method = "post"';
+  registerString += "<label>Username: </label>";
+  registerString += '<input type="text" id="username" name="username">< /br>';
+  registerString += "<label>Password: </label>";
   registerString += '<input type="text" id="password" name="password">';
-  registerString += '<input type="submit" value="Submit">'
-  registerString += '</form>';
+  registerString += '<input type="submit" value="Submit">';
+  registerString += "</form>";
   res.send(registerString);
 });
 
 app.get("/insertDb/:username&:password", function (req, res) {
-
   const client = new MongoClient(uri);
 
   async function run() {
-    try{
+    try {
       const database = client.db("MongoTestPub");
       const parts = database.collection("Data");
 
       const doc = {
         username: req.params.username,
         password: req.params.password,
-      }
+      };
 
       const result = await DataTransfer.insertOne(doc);
     } finally {
@@ -54,18 +53,16 @@ app.get("/insertDb/:username&:password", function (req, res) {
     }
   }
 
-  run().catch(console.dir)
+  run().catch(console.dir);
 });
 
 app.get("/login", function (req, res) {
-  var outstring = "Starting Task 2 on date: " + Date.now();
+  var loginString = "<label>Username: </label>";
+  loginString += '<input type="text" id="username" name="username">< /br>';
+  loginString += "<label>Password: </label>";
+  loginString += '<input type="text" id="password" name="password">';
   res.send(outstring);
 });
-
-
-
-
-
 
 app.get("/say/:name", function (req, res) {
   res.send("Hello " + req.params.name + "!");
