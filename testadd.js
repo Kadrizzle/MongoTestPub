@@ -24,17 +24,48 @@ app.get("/", function (req, res) {
 });
 
 app.get("/register", function (req, res) {
-  var registerString = '<label>Username: </label>';
-  registerString += '<input type="text" id="username">';
+  var registerString = '<form action = "/insertDb" method = "post"';
+  registerString += '<label>Username: </label>';
+  registerString += '<input type="text" id="username" name="username">';
   registerString += '<label>Password: </label>';
-  registerString += '<input type="text" id="password">';
+  registerString += '<input type="text" id="password" name="password">';
+  registerString += '<input type="submit" value="Submit">'
+  registerString += '</form>';
   res.send(registerString);
+});
+
+app.get("/insertDb/:username&:password", function (req, res) {
+
+  const client = new MongoClient(uri);
+
+  async function run() {
+    try{
+      const database = client.db("MongoTestPub");
+      const parts = database.collection("Data");
+
+      const doc = {
+        username: req.params.username,
+        password: req.params.password,
+      }
+
+      const result = await DataTransfer.insertOne(doc);
+    } finally {
+      await client.close();
+    }
+  }
+
+  run().catch(console.dir)
 });
 
 app.get("/login", function (req, res) {
   var outstring = "Starting Task 2 on date: " + Date.now();
   res.send(outstring);
 });
+
+
+
+
+
 
 app.get("/say/:name", function (req, res) {
   res.send("Hello " + req.params.name + "!");
