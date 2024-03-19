@@ -25,9 +25,9 @@ app.get("/", function (req, res) {
 
 app.get("/register", function (req, res) {
   var registerString = '<label>Username: </label>';
-  registerString += '<input type="text" id="username"';
-  registerString += '<label>Password: </label>'
-  registerString += '<input type="text" id="password"';
+  registerString += '<input type="text" id="username">';
+  registerString += '<label>Password: </label>';
+  registerString += '<input type="text" id="password">';
   res.send(registerString);
 });
 
