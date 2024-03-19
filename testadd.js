@@ -18,7 +18,7 @@ app.use(cookieParser());
 
 
 app.get("/", function (req, res) {
-  outstring += '<p><a href="./register">Go to register</a>';
+  var outstring = '<p><a href="./register">Go to register</a>';
   outstring += '<p><a href="./login">Go to login</a>';
   res.send(outstring);
 });
