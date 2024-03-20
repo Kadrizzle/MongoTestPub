@@ -33,7 +33,7 @@ app.all("/register", function (req, res) {
   res.send(registerString);
 });
 
-app.all("/insertDb", function (req, res) {
+app.all("/insertDb/:username&:password", function (req, res) {
   const client = new MongoClient(uri);
   databaseString = "<p>You are on insertDb page</p>";
   res.send(databaseString);
