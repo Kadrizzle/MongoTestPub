@@ -22,7 +22,7 @@ app.get("/", function (req, res) {
   res.send(outstring);
 });
 
-app.post("/register", function (req, res) {
+app.all("/register", function (req, res) {
   var registerString = '<form action = "/insertDb" method = "POST"';
   registerString += "<label>Username: </label>";
   registerString += '<input type="text" id="username" name="username"><br>';
