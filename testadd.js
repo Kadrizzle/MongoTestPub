@@ -23,8 +23,7 @@ app.get("/", function (req, res) {
 });
 
 app.all("/register", function (req, res) {
-  var registerString =
-    '<form action = "/insertDb/:username&:password" method = "POST"';
+  var registerString = '<form action = "/insertDb" method = "POST"';
   registerString += "<label>Username: </label>";
   registerString += '<input type="text" id="username" name="username"><br>';
   registerString += "<label>Password: </label>";
@@ -34,10 +33,12 @@ app.all("/register", function (req, res) {
   res.send(registerString);
 });
 
-app.all("/insertDb/:username&:password", function (req, res) {
+app.all("/insertDb", function (req, res) {
   const client = new MongoClient(uri);
   databaseString = "<p>You are on insertDb page</p>";
   res.send(databaseString);
+
+  req.body();
 
   async function run() {
     try {
