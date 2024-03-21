@@ -36,7 +36,7 @@ app.all("/register", function (req, res) {
 app.all("/insertDb", function (req, res) {
   const client = new MongoClient(uri);
   databaseString = "<p>You are on insertDb page</p>";
-  console.log("Username: ", req.body.username);
+  console.log("Username (checking): ", req.body.username);
   console.log("Password: ", req.body.password);
   res.send(databaseString);
 
