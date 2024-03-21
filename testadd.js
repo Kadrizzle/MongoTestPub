@@ -37,7 +37,7 @@ app.all("/insertDb", function (req, res) {
   const client = new MongoClient(uri);
   databaseString = "<p>You are on insertDb page</p>";
   res.send(databaseString);
-  res.send(req.body.username);
+  res.send(req.params.username);
   res.send(req.body.password);
 
   async function run() {
