@@ -40,16 +40,15 @@ app.all("/insertDb", function (req, res) {
   console.log("Password: ", req.body.password);
   res.send(databaseString);
 
-  req.body();
-
   async function run() {
     try {
+      await client.connect();
       const database = client.db("MongoTestPub");
       const parts = database.collection("Data");
 
       const doc = {
-        username: req.params.username,
-        password: req.params.password,
+        username: req.body.username,
+        password: req.body.password,
       };
 
       await parts.insertOne(doc);
