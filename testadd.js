@@ -37,8 +37,8 @@ app.all("/insertDb", function (req, res) {
   const client = new MongoClient(uri);
   databaseString = "<p>You are on insertDb page</p>";
   res.send(databaseString);
-  res.send(req.params.username);
-  res.send(req.body.password);
+  const username = req.body.username;
+  const password = req.body.password;
 
   async function run() {
     try {
@@ -47,8 +47,8 @@ app.all("/insertDb", function (req, res) {
       const parts = database.collection("Data");
 
       const doc = {
-        username: req.body.username,
-        password: req.body.password,
+        username: username,
+        password: password,
       };
 
       await parts.insertOne(doc);
