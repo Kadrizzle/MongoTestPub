@@ -23,7 +23,7 @@ app.get("/", function (req, res) {
 });
 
 app.all("/register", function (req, res) {
-  var registerString = '<form action="/insertDb" method="POST"';
+  var registerString = '<form action="/insertDb" method="POST">';
   registerString += "<label>Username: </label>";
   registerString += '<input type="text" id="username" name="username"><br>';
   registerString += "<label>Password: </label>";
