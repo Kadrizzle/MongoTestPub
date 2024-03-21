@@ -52,7 +52,7 @@ app.all("/insertDb", function (req, res) {
         password: req.params.password,
       };
 
-      const result = await DataTransfer.insertOne(doc);
+      await parts.insertOne(doc);
     } finally {
       await client.close();
     }
