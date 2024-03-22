@@ -39,7 +39,6 @@ app.all("/afterLoginSubmit", function (req, res) {
   const client = new MongoClient(uri);
   const username = req.body.username;
   const password = req.body.password;
-  var routeBackToLogin = '<a href="/afterLoginSubmit">Go back to login</a>';
 
   async function run() {
     try {
@@ -57,6 +56,8 @@ app.all("/afterLoginSubmit", function (req, res) {
         res.send("Login successful!");
       } else {
         res.send("Invalid username or password.");
+        var routeBackToLogin =
+          '<a href="/afterLoginSubmit">Go back to login</a>';
         res.send(routeBackToLogin);
       }
     } finally {
