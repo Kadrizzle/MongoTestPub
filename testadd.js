@@ -35,6 +35,36 @@ app.all("/login", function (req, res) {
   res.send(loginString);
 });
 
+app.all("/afterLoginSubmit", function (req, res) {
+  const client = new MongoClient(uri);
+  const username = req.body.username;
+  const password = req.body.password;
+
+  async function run() {
+    try {
+      await client.connect();
+      const database = client.db("MongoTestPub");
+      const data = database.collection("Data");
+
+      const user = await data.findOne({
+        username: username,
+        password: password,
+      });
+
+      if (user) {
+        res.cookie("user", username, { maxAge: 30000, httpOnly: true });
+        res.send("Login successful!");
+      } else {
+        res.send("Invalid username or password.");
+      }
+    } finally {
+      await client.close();
+    }
+  }
+
+  run().catch(console.dir);
+});
+
 app.all("/register", function (req, res) {
   var registerString = '<form action="/afterRegisterSubmit" method="POST">';
   registerString += "<h1>REGISTER</h1>";
