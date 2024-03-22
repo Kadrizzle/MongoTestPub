@@ -22,8 +22,21 @@ app.get("/", function (req, res) {
   res.send(outstring);
 });
 
+app.all("/login", function (req, res) {
+  var loginString = '<form action="/afterLoginSubmit" method="POST">';
+  loginString += "<h1>LOGIN</h1>";
+  loginString += "<label>Username: </label>";
+  loginString += '<input type="text" id="username" name="username"><br>';
+  loginString += "<label>Password: </label>";
+  loginString += '<input type="text" id="password" name="password">';
+  loginString += '<input type="submit" value="Submit">';
+  loginString += "</form>";
+  res.send(loginString);
+});
+
 app.all("/register", function (req, res) {
-  var registerString = '<form action="/insertDb" method="POST">';
+  var registerString = '<form action="/afterRegisterSubmit" method="POST">';
+  registerString += "<h1>REGISTER</h1>";
   registerString += "<label>Username: </label>";
   registerString += '<input type="text" id="username" name="username"><br>';
   registerString += "<label>Password: </label>";
@@ -33,9 +46,9 @@ app.all("/register", function (req, res) {
   res.send(registerString);
 });
 
-app.all("/insertDb", function (req, res) {
+app.all("/afterRegisterSubmit", function (req, res) {
   const client = new MongoClient(uri);
-  databaseString = "<p>You are on insertDb page</p>";
+  databaseString = "<p>You are now registered into the database!</p>";
   res.send(databaseString);
   const username = req.body.username;
   const password = req.body.password;
@@ -58,14 +71,6 @@ app.all("/insertDb", function (req, res) {
   }
 
   run().catch(console.dir);
-});
-
-app.get("/login", function (req, res) {
-  var loginString = "<label>Username: </label>";
-  loginString += '<input type="text" id="username" name="username">< /br>';
-  loginString += "<label>Password: </label>";
-  loginString += '<input type="text" id="password" name="password">';
-  res.send(outstring);
 });
 
 app.get("/say/:name", function (req, res) {
