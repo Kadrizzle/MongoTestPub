@@ -17,7 +17,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.get("/", function (req, res) {
-  var outstring = '<p><a href="./register">Go to register</a>';
+  var outstring = "<h1>HOMEPAGE</h1>";
+  outstring += '<p><a href="./register">Go to register</a>';
   outstring += '<p><a href="./login">Go to login</a>';
   res.send(outstring);
 });
@@ -49,6 +50,7 @@ app.all("/register", function (req, res) {
 app.all("/afterRegisterSubmit", function (req, res) {
   const client = new MongoClient(uri);
   databaseString = "<p>You are now registered into the database!</p>";
+  databaseString += '<a href="/">Go back to homepage</a>';
   res.send(databaseString);
   const username = req.body.username;
   const password = req.body.password;
