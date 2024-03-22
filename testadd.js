@@ -55,7 +55,10 @@ app.all("/afterLoginSubmit", function (req, res) {
         res.cookie("user", username, { maxAge: 30000, httpOnly: true });
         res.send("Login successful!");
       } else {
-        res.send("Invalid username or password.");
+        res.send(
+          "Invalid username or password." +
+            '<a href="/login">Go back to login</a>'
+        );
         var routeBackToLogin = '<a href="/login">Go back to login</a>';
         res.send(routeBackToLogin);
       }
