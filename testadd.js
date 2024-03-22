@@ -56,8 +56,7 @@ app.all("/afterLoginSubmit", function (req, res) {
         res.send("Login successful!");
       } else {
         res.send("Invalid username or password.");
-        var routeBackToLogin =
-          '<a href="/afterLoginSubmit">Go back to login</a>';
+        var routeBackToLogin = '<a href="/login">Go back to login</a>';
         res.send(routeBackToLogin);
       }
     } finally {
