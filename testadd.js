@@ -30,7 +30,8 @@ app.all("/login", function (req, res) {
   loginString += '<input type="text" id="username" name="username"><br>';
   loginString += "<label>Password: </label>";
   loginString += '<input type="text" id="password" name="password">';
-  loginString += '<input type="submit" value="Submit">';
+  loginString += '<input type="submit" value="Submit"><br>';
+  loginString += '<a href="/">Go back to homepage</a>';
   loginString += "</form>";
   res.send(loginString);
 });
@@ -75,7 +76,8 @@ app.all("/register", function (req, res) {
   registerString += '<input type="text" id="username" name="username"><br>';
   registerString += "<label>Password: </label>";
   registerString += '<input type="text" id="password" name="password">';
-  registerString += '<input type="submit" value="Submit">';
+  registerString += '<input type="submit" value="Submit"><br>';
+  registerString += '<a href="/">Go back to homepage</a>';
   registerString += "</form>";
   res.send(registerString);
 });
