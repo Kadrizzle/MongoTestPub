@@ -56,6 +56,7 @@ app.all("/afterLoginSubmit", function (req, res) {
         res.send("Login successful!");
       } else {
         res.send("Invalid username or password.");
+        res.send('<a href="/afterLoginSubmit">Go back to login</a>');
       }
     } finally {
       await client.close();
