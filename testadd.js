@@ -135,20 +135,9 @@ app.all("/afterRegisterSubmit", function (req, res) {
 });
 
 app.all("/cookiesCookiesCookies", function (req, res) {
+  mycookies = req.cookies;
   const mycookies = req.cookies;
-  let cookiesHtml = "<ul>";
-  for (const [name, value] of Object.entries(mycookies)) {
-    cookiesHtml += `<li>${name}: ${value}</li>`;
-  }
-  cookiesHtml += "</ul>";
-
-  const htmlResponse = `
-    <h2>Cookies:</h2>
-    ${cookiesHtml}
-    <br><br><a href="/terminateCookies">Click to go to the cookie termination page</a><br><br>
-  `;
-
-  res.send(htmlResponse);
+  res.send(mycookies);
 });
 
 app.all("/terminateCookies", function (req, res) {
