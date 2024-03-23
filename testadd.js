@@ -141,7 +141,7 @@ app.all("/cookiesCookiesCookies", function (req, res) {
   res.send(cookieString);
 });
 
-app.all("/terminateCookies/:cookie", function (req, res) {
+app.all("/terminateCookies/", function (req, res) {
   if (req.cookies) {
     for (var cookie in req.cookies) {
       res.clearCookie(cookie);
