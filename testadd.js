@@ -135,10 +135,10 @@ app.all("/afterRegisterSubmit", function (req, res) {
 
 app.all("/cookiesCookiesCookies", function (req, res) {
   const mycookies = req.cookies;
-  res.send(
-    mycookies,
-    '<br><br><a href="/terminateCookies">Click to go to the cookie termination page</a><br><br>'
-  );
+  const cookieString =
+    JSON.stringify(mycookies) +
+    '<br><br><a href="/terminateCookies">Click to go to the cookie termination page</a><br><br>';
+  res.send(cookieString);
 });
 
 app.all("/terminateCookies", function (req, res) {
