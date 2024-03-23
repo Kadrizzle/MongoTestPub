@@ -137,12 +137,14 @@ app.all("/cookiesCookiesCookies", function (req, res) {
   const mycookies = req.cookies;
   res.send(
     mycookies,
-    '<br><br><a href="/terminateCookies">Click to go to the cookie termination page</a><br><br><a href="/">Click here to go to homepage</a>'
+    '<br><br><a href="/terminateCookies">Click to go to the cookie termination page</a><br><br>'
   );
 });
 
 app.all("/terminateCookies", function (req, res) {
-  var hello;
+  res.send(
+    '<a href="/cookiesCookiesCookies">Click here to see all the cookies</a><br><a href="/">Click here to go to the homepage</a>'
+  );
 });
 
 app.get("/say/:name", function (req, res) {
