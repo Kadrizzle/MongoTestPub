@@ -134,7 +134,7 @@ app.all("/afterRegisterSubmit", function (req, res) {
 });
 
 app.all("/cookiesCookiesCookies", function (req, res) {
-  mycookies = req.cookies;
+  const mycookies = req.cookies;
   res.send(mycookies);
 });
 
