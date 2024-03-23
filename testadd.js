@@ -19,17 +19,19 @@ app.use(cookieParser());
 app.get("/", function (req, res) {
   var mycookies = req.cookies;
 
-  if (!mycookies) {
-    var outstring = "<h1>HOMEPAGE</h1>";
-    outstring += '<p><a href="./register">Go to register</a>';
-    outstring += '<p><a href="./login">Go to login</a>';
-    res.send(outstring);
-  } else {
-    mycookies = req.cookies;
-    var cookieString =
-      "<h1>A cookie/cookies already exists. Here are the cookies: </h1>";
-    res.send(mycookies);
-  }
+  // if (!mycookies) {
+  var outstring = "<h1>HOMEPAGE</h1>";
+  outstring += '<p><a href="./register">Go to register</a>';
+  outstring += '<p><a href="./login">Go to login</a><br>';
+  outstring +=
+    '<a href="/cookiesCookiesCookies">Click to see all the cookies</a>';
+  res.send(outstring);
+  // } else {
+  //   mycookies = req.cookies;
+  //   var cookieString =
+  //     "<h1>A cookie/cookies already exists. Here are the cookies: </h1>";
+  //   res.send(mycookies);
+  // }
 });
 
 app.all("/login", function (req, res) {
@@ -41,6 +43,8 @@ app.all("/login", function (req, res) {
   loginString += '<input type="text" id="password" name="password">';
   loginString += '<input type="submit" value="Submit"><br>';
   loginString += '<a href="/">Go back to homepage</a>';
+  loginString +=
+    '<a href="/cookiesCookiesCookies">Click to see all the cookies</a>';
   loginString += "</form>";
   res.send(loginString);
 });
@@ -64,12 +68,15 @@ app.all("/afterLoginSubmit", function (req, res) {
       if (user) {
         res.cookie("user", username, { maxAge: 30000, httpOnly: true });
         res.send(
-          "You are now logged in :)" + '<a href="/">Go back to homepage</a>'
+          "You are now logged in :)" +
+            '<a href="/">Go back to homepage</a><br>' +
+            '<a href="/cookiesCookiesCookies">Click to see all the cookies</a>'
         );
       } else {
         res.send(
           "The username or password is wrong. Click the link to go back and try again" +
-            '<a href="/login">Go back to login</a>'
+            '<a href="/login">Go back to login</a><br>' +
+            '<a href="/cookiesCookiesCookies">Click to see all the cookies</a>'
         );
       }
     } finally {
@@ -89,14 +96,19 @@ app.all("/register", function (req, res) {
   registerString += '<input type="text" id="password" name="password">';
   registerString += '<input type="submit" value="Submit"><br>';
   registerString += '<a href="/">Go back to homepage</a>';
+  registerString +=
+    '<a href="/cookiesCookiesCookies">Click to see all the cookies</a>';
+
   registerString += "</form>";
   res.send(registerString);
 });
 
 app.all("/afterRegisterSubmit", function (req, res) {
   const client = new MongoClient(uri);
-  databaseString = "<p>You are now registered into the database!</p>";
+  var databaseString = "<p>You are now registered into the database!</p>";
   databaseString += '<a href="/">Go back to homepage</a>';
+  databaseString +=
+    '<a href="/cookiesCookiesCookies">Click to see all the cookies</a>';
   res.send(databaseString);
   const username = req.body.username;
   const password = req.body.password;
@@ -119,6 +131,11 @@ app.all("/afterRegisterSubmit", function (req, res) {
   }
 
   run().catch(console.dir);
+});
+
+app.all("/cookiesCookiesCookies", function (req, res) {
+  mycookies = req.cookies;
+  res.send(mycookies);
 });
 
 app.get("/say/:name", function (req, res) {
