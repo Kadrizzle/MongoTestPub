@@ -19,19 +19,19 @@ app.use(cookieParser());
 app.get("/", function (req, res) {
   var mycookies = req.cookies;
 
-  // if (!mycookies) {
-  var outstring = "<h1>HOMEPAGE</h1>";
-  outstring += '<p><a href="./register">Go to register</a>';
-  outstring += '<p><a href="./login">Go to login</a><br><br>';
-  outstring +=
-    '<a href="/cookiesCookiesCookies">Click to see all the cookies</a>';
-  res.send(outstring);
-  // } else {
-  //   mycookies = req.cookies;
-  //   var cookieString =
-  //     "<h1>A cookie/cookies already exists. Here are the cookies: </h1>";
-  //   res.send(mycookies);
-  // }
+  if (!mycookies) {
+    var outstring = "<h1>HOMEPAGE</h1>";
+    outstring += '<p><a href="./register">Go to register</a>';
+    outstring += '<p><a href="./login">Go to login</a><br><br>';
+    outstring +=
+      '<a href="/cookiesCookiesCookies">Click to see all the cookies</a>';
+    res.send(outstring);
+  } else {
+    mycookies = req.cookies;
+    var cookieString =
+      "<h1>A cookie/cookies already exists. Here are the cookies: </h1>";
+    res.send(mycookies);
+  }
 });
 
 app.all("/login", function (req, res) {
@@ -141,41 +141,15 @@ app.all("/cookiesCookiesCookies", function (req, res) {
   res.send(cookieString);
 });
 
-app.all("/terminateCookies", function (req, res) {
-  res.send(
-    '<a href="/cookiesCookiesCookies">Click here to see all the cookies</a><br><a href="/">Click here to go to the homepage</a>'
-  );
-});
-
-app.get("/say/:name", function (req, res) {
-  res.send("Hello " + req.params.name + "!");
-});
-
-// Access Example-1
-// Route to access database using a parameter:
-// access as ...app.github.dev/api/mongo/9876
-app.get("/api/mongo/:item", function (req, res) {
-  const client = new MongoClient(uri);
-
-  async function run() {
-    try {
-      const database = client.db("MongoTestPub");
-      const parts = database.collection("Data");
-
-      // Here we make a search query where the key is hardwired to 'partID'
-      // and the value is picked from the input parameter that comes in the route
-      const query = { partID: req.params.item };
-      console.log("Looking for: " + query);
-
-      const part = await parts.findOne(query);
-      console.log(part);
-      res.send("Found this: " + JSON.stringify(part)); //Use stringify to print a json
-    } finally {
-      // Ensures that the client will close when you finish/error
-      await client.close();
+app.all("/terminateCookies/:cookie", function (req, res) {
+  if (req.cookies) {
+    for (var cookie in req.cookies) {
+      res.clearCookie(cookie);
     }
   }
-  run().catch(console.dir);
+  res.send(
+    '<a href="/cookiesCookiesCookies">Click here to see all the cookies</a><br><br><a href="/">Click here to go to the homepage</a>'
+  );
 });
 
 // Access Example-2
