@@ -22,7 +22,7 @@ app.get("/", function (req, res) {
   // if (!mycookies) {
   var outstring = "<h1>HOMEPAGE</h1>";
   outstring += '<p><a href="./register">Go to register</a>';
-  outstring += '<p><a href="./login">Go to login</a><br>';
+  outstring += '<p><a href="./login">Go to login</a><br><br>';
   outstring +=
     '<a href="/cookiesCookiesCookies">Click to see all the cookies</a>';
   res.send(outstring);
@@ -42,7 +42,7 @@ app.all("/login", function (req, res) {
   loginString += "<label>Password: </label>";
   loginString += '<input type="text" id="password" name="password">';
   loginString += '<input type="submit" value="Submit"><br>';
-  loginString += '<a href="/">Go back to homepage</a>';
+  loginString += '<a href="/">Go back to homepage</a><br><br>';
   loginString +=
     '<a href="/cookiesCookiesCookies">Click to see all the cookies</a>';
   loginString += "</form>";
@@ -69,7 +69,7 @@ app.all("/afterLoginSubmit", function (req, res) {
         res.cookie("user", username, { maxAge: 30000, httpOnly: true });
         res.send(
           "You are now logged in :)" +
-            '<a href="/">Go back to homepage</a><br>' +
+            '<br><a href="/">Go back to homepage</a><br>' +
             '<a href="/cookiesCookiesCookies">Click to see all the cookies</a>'
         );
       } else {
@@ -135,7 +135,14 @@ app.all("/afterRegisterSubmit", function (req, res) {
 
 app.all("/cookiesCookiesCookies", function (req, res) {
   const mycookies = req.cookies;
-  res.send(mycookies);
+  res.send(
+    mycookies,
+    '<br><br><a href="/terminateCookies">Click to go to the cookie termination page</a><br><br><a href="/">Click here to go to homepage</a>'
+  );
+});
+
+app.all("/terminateCookies", function (req, res) {
+  var hello;
 });
 
 app.get("/say/:name", function (req, res) {
