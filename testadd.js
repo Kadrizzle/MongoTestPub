@@ -75,7 +75,8 @@ app.all("/afterLoginSubmit", function (req, res) {
       } else {
         res.send(
           "The username or password is wrong. Click the link to go back and try again" +
-            '<a href="/login">Go back to login</a><br>' +
+            '<a href="/">Click to go back to homepage</a>' +
+            '<a href="/login">Go back to login</a><br><br>' +
             '<a href="/cookiesCookiesCookies">Click to see all the cookies</a>'
         );
       }
@@ -135,13 +136,22 @@ app.all("/afterRegisterSubmit", function (req, res) {
 
 app.all("/cookiesCookiesCookies", function (req, res) {
   const mycookies = req.cookies;
-  const cookieString =
-    JSON.stringify(mycookies) +
-    '<br><br><a href="/terminateCookies">Click to go to the cookie termination page</a><br><br>';
-  res.send(cookieString);
+  let cookiesHtml = "<ul>";
+  for (const [name, value] of Object.entries(mycookies)) {
+    cookiesHtml += `<li>${name}: ${value}</li>`;
+  }
+  cookiesHtml += "</ul>";
+
+  const htmlResponse = `
+    <h2>Cookies:</h2>
+    ${cookiesHtml}
+    <br><br><a href="/terminateCookies">Click to go to the cookie termination page</a><br><br>
+  `;
+
+  res.send(htmlResponse);
 });
 
-app.all("/terminateCookies/", function (req, res) {
+app.all("/terminateCookies", function (req, res) {
   if (req.cookies) {
     for (var cookie in req.cookies) {
       res.clearCookie(cookie);
