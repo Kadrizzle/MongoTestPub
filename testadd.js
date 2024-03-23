@@ -17,10 +17,18 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.get("/", function (req, res) {
-  var outstring = "<h1>HOMEPAGE</h1>";
-  outstring += '<p><a href="./register">Go to register</a>';
-  outstring += '<p><a href="./login">Go to login</a>';
-  res.send(outstring);
+  mycookies = req.cookies;
+
+  if (!mycookies) {
+    var outstring = "<h1>HOMEPAGE</h1>";
+    outstring += '<p><a href="./register">Go to register</a>';
+    outstring += '<p><a href="./login">Go to login</a>';
+    res.send(outstring);
+  } else {
+    var cookieString =
+      "<h1>A cookie/cookies already exists. Here are the cookies: </h1>";
+    res.send(mycookies);
+  }
 });
 
 app.all("/login", function (req, res) {
@@ -54,10 +62,12 @@ app.all("/afterLoginSubmit", function (req, res) {
 
       if (user) {
         res.cookie("user", username, { maxAge: 30000, httpOnly: true });
-        res.send("Login successful!" + '<a href="/">Go back to homepage</a>');
+        res.send(
+          "You are now logged in :)" + '<a href="/">Go back to homepage</a>'
+        );
       } else {
         res.send(
-          "Invalid username or password." +
+          "The username or password is wrong. Click the link to go back and try again" +
             '<a href="/login">Go back to login</a>'
         );
       }
