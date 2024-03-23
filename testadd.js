@@ -19,18 +19,25 @@ app.use(cookieParser());
 app.get("/", function (req, res) {
   var mycookies = req.cookies;
 
-  if (!mycookies) {
+  if (Object.keys(mycookies).length === 0) {
+    // No cookies exist
     var outstring = "<h1>HOMEPAGE</h1>";
-    outstring += '<p><a href="./register">Go to register</a>';
-    outstring += '<p><a href="./login">Go to login</a><br><br>';
+    outstring += '<p><a href="./register">Go to register</a></p>';
+    outstring += '<p><a href="./login">Go to login</a></p><br><br>';
     outstring +=
-      '<a href="/cookiesCookiesCookies">Click to see all the cookies</a>';
+      '<p><a href="/cookiesCookiesCookies">Click to see all the cookies</a></p>';
     res.send(outstring);
   } else {
-    mycookies = req.cookies;
+    // Cookies exist
     var cookieString =
       "<h1>A cookie/cookies already exists. Here are the cookies: </h1>";
-    res.send(mycookies);
+    let cookiesHtml = "<ul>";
+    for (const [name, value] of Object.entries(mycookies)) {
+      cookiesHtml += `<li>${name}: ${value}</li>`;
+    }
+    cookiesHtml += "</ul>";
+
+    res.send(cookieString + cookiesHtml);
   }
 });
 
