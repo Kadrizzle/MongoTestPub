@@ -86,7 +86,7 @@ app.all("/afterLoginSubmit", function (req, res) {
         res.send(
           "The username or password is wrong. Click the link to go back and try again" +
             '<a href="/login">Go back to login</a><br><br>' +
-            '<a href="/">Click to go back to homepage</a>' +
+            '<a href="/">Click to go back to homepage</a><br><br>' +
             '<a href="/cookiesCookiesCookies">Click to see all the cookies</a>'
         );
       }
