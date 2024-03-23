@@ -41,6 +41,7 @@ app.get("/", function (req, res) {
   }
 });
 
+//T3
 app.all("/login", function (req, res) {
   var loginString = '<form action="/afterLoginSubmit" method="POST">';
   loginString += "<h1>LOGIN</h1>";
@@ -72,6 +73,7 @@ app.all("/afterLoginSubmit", function (req, res) {
         password: password,
       });
 
+      //T3.2
       if (cookieHelper) {
         res.cookie("user", username, { maxAge: 30000, httpOnly: true });
         res.send(
@@ -79,6 +81,7 @@ app.all("/afterLoginSubmit", function (req, res) {
             '<br><a href="/">Go back to homepage</a><br>' +
             '<a href="/cookiesCookiesCookies">Click to see all the cookies</a>'
         );
+        //T3.1
       } else {
         res.send(
           "The username or password is wrong. Click the link to go back and try again" +
@@ -95,6 +98,7 @@ app.all("/afterLoginSubmit", function (req, res) {
   run().catch(console.dir);
 });
 
+//T2
 app.all("/register", function (req, res) {
   var registerString = '<form action="/afterRegisterSubmit" method="POST">';
   registerString += "<h1>REGISTER</h1>";
@@ -141,6 +145,7 @@ app.all("/afterRegisterSubmit", function (req, res) {
   run().catch(console.dir);
 });
 
+//T4
 app.all("/cookiesCookiesCookies", function (req, res) {
   const mycookies = req.cookies;
   const cookieString =
@@ -149,6 +154,7 @@ app.all("/cookiesCookiesCookies", function (req, res) {
   res.send(cookieString);
 });
 
+//T5
 app.all("/terminateCookies", function (req, res) {
   if (req.cookies) {
     for (var cookie in req.cookies) {
