@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.get("/", function (req, res) {
-  mycookies = req.cookies;
+  var mycookies = req.cookies;
 
   if (!mycookies) {
     var outstring = "<h1>HOMEPAGE</h1>";
@@ -25,6 +25,7 @@ app.get("/", function (req, res) {
     outstring += '<p><a href="./login">Go to login</a>';
     res.send(outstring);
   } else {
+    mycookies = req.cookies;
     var cookieString =
       "<h1>A cookie/cookies already exists. Here are the cookies: </h1>";
     res.send(mycookies);
