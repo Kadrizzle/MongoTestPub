@@ -67,12 +67,12 @@ app.all("/afterLoginSubmit", function (req, res) {
       const database = client.db("MongoTestPub");
       const data = database.collection("Data");
 
-      const user = await data.findOne({
+      const cookieHelper = await data.findOne({
         username: username,
         password: password,
       });
 
-      if (user) {
+      if (cookieHelper) {
         res.cookie("user", username, { maxAge: 30000, httpOnly: true });
         res.send(
           "You are now logged in :)" +
